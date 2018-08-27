@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    margin: 0;
+}
+
+.headtxt {
+    line-height: 1.6em;
+    margin: 0 0 2em;
+    letter-spacing: 0.2em;
+    color: #eb9586;
+}
+
+.headerh1 {
+    font-weight: 200px;
+    font-size: 3em;
+    color: #900c3f;
+    margin: 0;
+    padding: 0 0 0.2em;
+    display: inline-block;
+}
+
+header {
+    padding: 2em 0 1em;
+    margin: 0 0 4em;
+    text-align: center;
+    border-bottom: 1px solid #f38572;
+}
+
+.imagesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    margin: -1rem -1rem;
+}
+
+.imagediv {
+    border-radius: 10px;
+    border: 1px solid gray;
+    text-align: center;
+    flex: 1 0 22rem;
+    margin: 1rem;
+    /*animation: fadeUp 1s;*/
+}
+
+img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.imgtxt {
+    font-size: 0.5em;
+}
+
+.uploadform {
+    text-align: center;
+}
+
+form {
+    display: block;
+}
+.uploadbtndiv {
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+
+.btn {
+    border: 2px solid #c70039;
+    color: #eb9586;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    margin-left: 45%;
+    margin-top: 10px;
+}
+
+.uploadbtndiv input[type="file"] {
+    left: 20px;
+    margin-top: 10px;
+}
