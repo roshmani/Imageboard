@@ -31,7 +31,9 @@
             <h1>Recent Images</h2>
                 <div  class="imagesContainer" v-if="images.length > 0">
                     <div class="imagediv" v-for="image in images">
-                        <img v-bind:src='image.url' alt="image"/>
+                        <a v-bind:href="image.url" target="_blank">
+                            <img v-bind:src='image.url' alt="image"/>
+                        </a>
                         <p class="imgtxt">{{image.title}}</p></div>
                 </div>
             </div>
