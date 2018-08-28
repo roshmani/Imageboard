@@ -15,11 +15,11 @@
             <!--we dont have to use a form tag-->
             <div class="form">
                 <label for="title">Title :</label>
-                <input v-model='form.title' type="text" name="title" placeholder="image title">
+                <input v-model='form.title' type="text" name="title" placeholder="image title" required>
                 <label for="description">Description :</label>
-                <input v-model='form.description' type="text" name="description" placeholder="image description">
+                <input v-model='form.description' type="text" name="description" placeholder="image description" required>
                 <label for="username">User Name :</label>
-                <input v-model='form.username' type="text" name="username" placeholder="user name">
+                <input v-model='form.username' type="text" name="username" placeholder="user name" required>
                 <div class="uploadbtndiv">
                     <label for="myfile">File :</label>
                     <input type="file" accept='image/*' name="myfile" />

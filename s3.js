@@ -14,6 +14,12 @@ const client = knox.createClient({
 });
 
 module.exports.upload = function(req, res, next) {
+    if (!req.file) {
+        console.log("No req.file");
+        return res.status(500).json({
+            success: false
+        });
+    }
     const s3Request = client.put(req.file.filename, {
         "Content-Type": req.file.mimetype,
         "Content-Length": req.file.size,
