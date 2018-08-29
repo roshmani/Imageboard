@@ -1,13 +1,15 @@
 const express = require("express");
-const { getImages, writeFiletodb } = require("./imageboarddb");
+const {
+    getImages,
+    writeFiletodb,
+    getImageFromDB,
+    getComments,
+    writeCommentstodb
+} = require("./imageboarddb");
 const s3 = require("./s3");
 const config = require("./config");
 const app = express();
-app.use(
-    require("body-parser").urlencoded({
-        extended: false
-    })
-); // used in POST requests
+app.use(require("body-parser").json()); // used in POST requests
 /***********************************************************************/
 /*                   File Upload header Declarations                   */
 /***********************************************************************/
@@ -35,13 +37,35 @@ var uploader = multer({
 });
 /***********************************************************************/
 app.use(express.static("public"));
-app.get("/getimages", (req, res) => {
+app.get("/getImages", (req, res) => {
     getImages()
         .then(function(results) {
             res.json({ images: results.rows });
         })
         .catch(function(err) {
-            console.log("error !", err);
+            console.log("error in getting images !", err);
+        });
+});
+
+app.get("/getComments/:id", (req, res) => {
+    let imageId = req.params.id;
+    getComments(imageId)
+        .then(function(results) {
+            res.json({ comments: results.rows });
+        })
+        .catch(function(err) {
+            console.log("error in getting images !", err);
+        });
+});
+
+app.get("/getImage/:id", (req, res) => {
+    let imageId = req.params.id;
+    getImageFromDB(imageId)
+        .then(function(results) {
+            res.json({ image: results.rows });
+        })
+        .catch(function(err) {
+            console.log("error in getting the image based on id!", err);
         });
 });
 
@@ -65,4 +89,19 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         });
 });
 
+app.post("/submitComment/:id", (req, res) => {
+    let imageId = req.params.id;
+    writeCommentstodb(imageId, req.body.comment, req.body.username)
+        .then(results => {
+            res.json({
+                comment: results.rows
+            });
+        })
+        .catch(err => {
+            console.log("error from submit comments", err);
+            res.status(500).json({
+                success: false
+            });
+        });
+});
 app.listen(8080, () => console.log("listening on port 8080..."));

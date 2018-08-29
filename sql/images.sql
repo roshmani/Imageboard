@@ -8,7 +8,14 @@ CREATE TABLE images(
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
+DROP TABLE IF EXISTS comments;
+CREATE TABLE comments(
+    id SERIAL PRIMARY KEY,
+    image_id INTEGER REFERENCES images(id),
+    comment VARCHAR(700) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 INSERT INTO images (url, username, title, description) VALUES (
     'https://s3.amazonaws.com/spicedling/MQwozP4QM5uK84XgPs4Q0oUIVWiwzN-w.jpg',
     'funkychicken',

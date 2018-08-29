@@ -1,8 +1,46 @@
 (function() {
+    Vue.component("image-modal", {
+        data: function() {
+            return {
+                image: {},
+                comments: [],
+                form: {
+                    comment: "",
+                    username: ""
+                }
+            };
+        },
+        template: "#imagemodal",
+        props: ["id"],
+        mounted: function() {
+            var component = this;
+            console.log("In mounted:", this.id);
+            axios.get("/getImage/" + this.id).then(function(resp) {
+                component.image = resp.data.image[0];
+            });
+            axios.get("/getComments/" + this.id).then(function(res) {
+                component.comments = res.data.comments;
+            });
+        },
+        methods: {
+            emitClose: function() {
+                this.$emit("close");
+            },
+            submitComment: function() {
+                var component = this;
+                axios
+                    .post("/submitComment/" + this.id, this.form)
+                    .then(function(resp) {
+                        component.comments.unshift(resp.data.comment[0]);
+                    });
+            } //submitcomment end
+        } //methods end*/
+    }); //close vue component
     var app = new Vue({
         el: "#main",
         data: {
             images: [],
+            currentImageId: null,
             form: {
                 title: "",
                 username: "",
@@ -27,7 +65,13 @@
                 axios.post("/upload", formData).then(function(resp) {
                     app.images.unshift(resp.data.image);
                 });
-            } //close upload
+            }, //close upload
+            getImageId: function(id) {
+                this.currentImageId = id;
+            }, //close getImageDetails
+            hideModal: function() {
+                this.currentImageId = null;
+            }
         } //close methods
     }); //close vue
 })();

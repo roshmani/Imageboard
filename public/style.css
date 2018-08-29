@@ -7,6 +7,28 @@ body {
     font-family: "Source Sans Pro", Arial, sans-serif;
     margin: 0;
 }
+.image-modal {
+    border: 3px solid black;
+    top: 5%;
+    left: 5%;
+    bottom: 5%;
+    right: 5%;
+    width: 90%;
+    height: 90%;
+    position: fixed;
+    overflow: auto;
+}
+.modal-wrapper {
+    background-color: white;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    position: fixed;
+    font-family: "Source Sans Pro", Arial, sans-serif;
+    z-index: 99999;
+}
 
 .headtxt {
     line-height: 1.6em;
