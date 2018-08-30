@@ -32,10 +32,13 @@
             <h1>Recent Images</h2>
                 <div  class="imagesContainer" v-if="images.length > 0">
                     <div class="imagediv" v-for="image in images">
-                        <img v-bind:src='image.url' v-on:click="getImageId(image.id)" alt="image"/>
-                        <p class="imgtxt">{{image.title}}</p>
+                        <a class="imagelink" :href="'#' + image.id">
+                            <img v-bind:src='image.url' alt="image"/>
+                            <p class="imgtxt">{{image.title}}</p>
+                        </a>
                     </div><!--imagediv-->
                 </div><!--imagesContainer-->
+                <input v-if="hasMore" v-on:click="getMoreImages" type="button" id="loadmore" value="Load More Results">
         </div><!--image display-->
 
     </div><!--main-->

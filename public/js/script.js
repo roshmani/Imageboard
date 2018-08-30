@@ -12,12 +12,15 @@
         },
         template: "#imagemodal",
         props: ["id"],
+        watch: {
+            id: function() {
+                this.getImageforModal();
+            }
+        },
         mounted: function() {
             var component = this;
             console.log("In mounted:", this.id);
-            axios.get("/getImage/" + this.id).then(function(resp) {
-                component.image = resp.data.image[0];
-            });
+            this.getImageforModal();
             axios.get("/getComments/" + this.id).then(function(res) {
                 component.comments = res.data.comments;
             });
@@ -33,13 +36,21 @@
                     .then(function(resp) {
                         component.comments.unshift(resp.data.comment[0]);
                     });
-            } //submitcomment end
+            }, //submitcomment end
+            getImageforModal: function() {
+                var component = this;
+                axios.get("/getImage/" + this.id).then(function(resp) {
+                    component.image = resp.data.image[0];
+                });
+            } //get image end
         } //methods end*/
     }); //close vue component
     var app = new Vue({
         el: "#main",
         data: {
             images: [],
+            lastImageId: null,
+            hasMore: true,
             currentImageId: null,
             form: {
                 title: "",
@@ -50,6 +61,8 @@
         mounted: function() {
             axios.get("/getImages").then(function(res) {
                 app.images = res.data.images;
+                app.lastImageId = app.images[app.images.length - 1].id;
+                console.log("image id", app.lastImageId);
             });
         },
         methods: {
@@ -71,7 +84,20 @@
             }, //close getImageDetails
             hideModal: function() {
                 this.currentImageId = null;
+                location.hash = "";
+            },
+            getMoreImages: function() {
+                //ajax request get next < last images id
+                axios
+                    .get("/getMoreImages/" + this.lastImageId)
+                    .then(function(res) {
+                        app.hasMore = !!res.data.moreimages.length;
+                        app.images = app.images.concat(res.data.moreimages);
+                    });
             }
         } //close methods
     }); //close vue
+    $(window).on("hashchange", function() {
+        app.currentImageId = location.hash.slice(1);
+    });
 })();

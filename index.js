@@ -4,7 +4,8 @@ const {
     writeFiletodb,
     getImageFromDB,
     getComments,
-    writeCommentstodb
+    writeCommentstodb,
+    getMoreImagesFromdb
 } = require("./imageboarddb");
 const s3 = require("./s3");
 const config = require("./config");
@@ -69,6 +70,16 @@ app.get("/getImage/:id", (req, res) => {
         });
 });
 
+app.get("/getMoreImages/:id", (req, res) => {
+    let lastimageid = req.params.id;
+    getMoreImagesFromdb(lastimageid)
+        .then(function(results) {
+            res.json({ moreimages: results.rows });
+        })
+        .catch(function(err) {
+            console.log("error in getting mores image based on lastid!", err);
+        });
+});
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     console.log("POST upload!", req.body);
     writeFiletodb(

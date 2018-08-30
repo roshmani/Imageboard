@@ -6,14 +6,24 @@ const db = spicedpg(dbURL);
 module.exports.getImages = function() {
     var query = `SELECT id,url,title
     FROM images
-    ORDER BY id DESC`;
+    ORDER BY id DESC
+    LIMIT 12`;
     return db.query(query);
+};
+module.exports.getMoreImagesFromdb = function(id) {
+    var query = `SELECT id,url,title
+    FROM images
+    WHERE id<$1
+    ORDER BY id DESC
+    LIMIT 12`;
+    return db.query(query, [+id]);
 };
 
 module.exports.getComments = function(id) {
     var query = `SELECT comment,username,created_at
     FROM comments
-    WHERE image_id=$1`;
+    WHERE image_id=$1
+    ORDER BY id DESC`;
     return db.query(query, [id]);
 };
 
@@ -26,7 +36,7 @@ module.exports.getImageFromDB = function(id) {
 
 module.exports.writeFiletodb = function(url, title, description, username) {
     var query = `INSERT INTO images (url,title, description,username)
-    VALUES ($1,$2,$3,$4) returning url,title`;
+    VALUES ($1,$2,$3,$4) returning id,url,title`;
     return db.query(query, [
         url || null,
         title || null,
