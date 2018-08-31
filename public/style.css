@@ -175,6 +175,21 @@ img {
     background-color: black;
     color: white;
 }
+.nextbtn,
+.prevbtn {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    padding: 10px;
+    cursor: pointer;
+    color: #fff;
+}
+.nextbtn {
+    right: 0;
+}
+.prevbtn {
+    left: 0;
+}
 label {
     font-size: 1rem;
 }

@@ -29,8 +29,12 @@ module.exports.getComments = function(id) {
 };
 
 module.exports.getImageFromDB = function(id) {
-    var query = `SELECT id,url,title,description,created_at
-    FROM images
+    var query = `SELECT id, url ,title,
+    (SELECT min(id) FROM images sub
+    WHERE sub.id > main.id) as previd,
+    (select max(id) FROM images sub
+    WHERE sub.id < main.id) as nextid
+    FROM images as main
     WHERE id=$1`;
     return db.query(query, [id]);
 };

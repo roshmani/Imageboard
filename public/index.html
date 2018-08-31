@@ -45,6 +45,8 @@
 
     <script id="imagemodal" type="text/template">
        <div class="modal-wrapper" v-on:click="emitClose">
+           <a class="prevbtn" v-if="image.previd" :href="'#'+image.previd">Prev</a>
+           <a class="nextbtn" v-if="image.nextid":href="'#'+image.nextid">Next</a>
            <div class="image-modal" v-on:click.stop>
                <div class="imageCommentdiv">
                    <div class="imageonmodal">
