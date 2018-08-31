@@ -67,6 +67,9 @@ app.get("/getImage/:id", (req, res) => {
         })
         .catch(function(err) {
             console.log("error in getting the image based on id!", err);
+            res.json({
+                image: {}
+            });
         });
 });
 
@@ -78,6 +81,9 @@ app.get("/getMoreImages/:id", (req, res) => {
         })
         .catch(function(err) {
             console.log("error in getting mores image based on lastid!", err);
+            res.status(500).json({
+                success: false
+            });
         });
 });
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {

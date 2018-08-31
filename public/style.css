@@ -8,6 +8,8 @@ body {
     margin: 0;
 }
 .image-modal {
+    display: flex;
+    justify-content: space-around;
     padding-top: 20px;
     border: 3px solid black;
     top: 10%;
@@ -17,7 +19,6 @@ body {
     width: 90%;
     height: 90%;
     position: fixed;
-    overflow: auto;
     background-color: white;
 }
 .modal-wrapper {
@@ -64,7 +65,7 @@ header {
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    margin: -1rem -1rem;
+    margin: 1rem 1rem;
 }
 
 .imagediv {
@@ -74,7 +75,17 @@ header {
     flex: 1 0 22rem;
     margin: 1rem;
     padding: 1rem;
-    /*animation: fadeUp 1s;*/
+    animation: fadeUp 1s;
+}
+@keyframes fadeUp {
+    from {
+        transform: translateY(50%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 img {
@@ -127,14 +138,42 @@ img {
 .form input[type="text"] {
     padding: 0.5rem;
 }
+.imageCommentdiv {
+    width: 60%;
+}
+
 .commentsContainer {
+    width: 40%;
     overflow: auto;
     margin: 10px;
+    border: 1px solid maroon;
+    border-style: ;
 }
 .commentdiv {
     text-align: left;
-    border: 1px solid red;
+    border-bottom: 1px solid maroon;
     margin: 10px;
+}
+
+.commentusr {
+    display: block;
+    margin-top: 20px;
+}
+.commentinput {
+    width: 70%;
+    height: 100px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+.imageonmodal {
+    padding: 10px;
+    margin: 10px;
+    background-color: black;
+    color: white;
 }
 label {
     font-size: 1rem;
@@ -148,5 +187,4 @@ label {
     color: white;
     border: none;
     font-size: 17px;
-    /*visibility: hidden;*/
 }

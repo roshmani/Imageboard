@@ -41,6 +41,11 @@
                 var component = this;
                 axios.get("/getImage/" + this.id).then(function(resp) {
                     component.image = resp.data.image[0];
+                    if (!component.image) {
+                        console.log("in component image doesnot exist");
+                        app.currentImageId = null;
+                        location.hash = "";
+                    }
                 });
             } //get image end
         } //methods end*/
@@ -51,7 +56,7 @@
             images: [],
             lastImageId: null,
             hasMore: true,
-            currentImageId: null,
+            currentImageId: location.hash.length > 1 && location.hash.slice(1),
             form: {
                 title: "",
                 username: "",
@@ -68,7 +73,7 @@
         methods: {
             uploadFile: function(e) {
                 e.preventDefault();
-                var file = $('input[type="file"]').get(0).files[0];
+                var file = this.file;
                 /*formdata is an api used to upload a file*/
                 var formData = new FormData();
                 formData.append("file", file);
@@ -93,11 +98,15 @@
                     .then(function(res) {
                         app.hasMore = !!res.data.moreimages.length;
                         app.images = app.images.concat(res.data.moreimages);
+                        app.lastImageId = app.images[app.images.length - 1].id;
                     });
+            }, //getMoreImages
+            changeFile: function(e) {
+                this.file = e.target.files[0];
             }
         } //close methods
     }); //close vue
-    $(window).on("hashchange", function() {
+    addEventListener("hashchange", function() {
         app.currentImageId = location.hash.slice(1);
     });
 })();

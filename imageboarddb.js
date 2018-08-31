@@ -11,6 +11,7 @@ module.exports.getImages = function() {
     return db.query(query);
 };
 module.exports.getMoreImagesFromdb = function(id) {
+    console.log("id last", id);
     var query = `SELECT id,url,title
     FROM images
     WHERE id<$1
@@ -24,7 +25,7 @@ module.exports.getComments = function(id) {
     FROM comments
     WHERE image_id=$1
     ORDER BY id DESC`;
-    return db.query(query, [id]);
+    return db.query(query, [+id]);
 };
 
 module.exports.getImageFromDB = function(id) {
