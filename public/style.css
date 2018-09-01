@@ -35,7 +35,13 @@ body {
     background: rgba(25, 42, 50, 0.7);
     transition: all 150ms ease 0s;
 }
-
+i {
+    font-size: 4rem !important;
+    width: 100%;
+}
+.commentusr {
+    padding: 0.5rem;
+}
 .headtxt {
     line-height: 1.6em;
     margin: 0 0 2em;
@@ -97,7 +103,9 @@ img {
 .imgtxt {
     font-size: 0.5em;
 }
-
+h1 {
+    margin-left: 20px;
+}
 .uploadform {
     text-align: center;
 }
@@ -133,6 +141,7 @@ img {
     margin-top: 10px;
     line-height: 2;
     padding: 10px;
+    font-size: 15px;
 }
 
 .form input[type="text"] {
@@ -155,7 +164,7 @@ img {
     margin: 10px;
 }
 
-.commentusr {
+.commentusrlbl {
     display: block;
     margin-top: 20px;
 }

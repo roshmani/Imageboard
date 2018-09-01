@@ -3,6 +3,7 @@
 <head>
     <title>My Image Board</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <div id="main">
@@ -29,7 +30,7 @@
             </div><!--form-->
         </div><!--upload form-->
         <div class="imagedisplay">
-            <h1>Recent Images</h2>
+            <h1>Recent Images</h1>
                 <div  class="imagesContainer" v-if="images.length > 0">
                     <div class="imagediv" v-for="image in images">
                         <a class="imagelink" :href="'#' + image.id">
@@ -45,8 +46,12 @@
 
     <script id="imagemodal" type="text/template">
        <div class="modal-wrapper" v-on:click="emitClose">
-           <a class="prevbtn" v-if="image.previd" :href="'#'+image.previd">Prev</a>
-           <a class="nextbtn" v-if="image.nextid":href="'#'+image.nextid">Next</a>
+           <a class="prevbtn" v-if="image.previd" :href="'#'+image.previd">
+                <i class="medium material-icons">navigate_before</i>
+           </a>
+           <a class="nextbtn" v-if="image.nextid":href="'#'+image.nextid">
+               <i class="medium material-icons">navigate_next</i>
+           </a>
            <div class="image-modal" v-on:click.stop>
                <div class="imageCommentdiv">
                    <div class="imageonmodal">
@@ -58,8 +63,8 @@
                    <div  class="commentsform">
                        <label for="comment">Add a Comment :</label>
                        <input class="commentinput" v-model='form.comment' type="text" name="comment" placeholder="comments" required>
-                       <label class="commentusr" for="username">User Name :
-                       <input v-model='form.username' type="text" name="username" placeholder="user name" required></label>
+                       <label class="commentusrlbl" for="username">User Name :
+                       <input class="commentusr" v-model='form.username' type="text" name="username" placeholder="user name" required></label>
                        <button v-on:click="submitComment" class="btn">Submit</button>
                    </div><!--commentsform-->
                </div><!--imageCommentdiv-->
