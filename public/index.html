@@ -71,8 +71,8 @@
                <div  class="commentsContainer" v-if="comments.length > 0">
                    <h1>Comments:</h1>
                    <div class="commentdiv" v-for="comment in comments">
-                       <p class="commenttxt">{{comment.comment}}</p>
-                       <p class="commentuser">{{comment.username}} on {{comment.created_at}}</p>
+                       <p class="commenttxt">"{{comment.comment}}"</p>
+                       <p class="commentuser"><span class="usr">{{comment.username}}</span> on {{comment.created_at}}</p>
                    </div><!--commentdiv-->
                </div><!--commentsContainer-->
            </div><!--imagemodal-->

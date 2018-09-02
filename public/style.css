@@ -73,6 +73,10 @@ header {
     font-size: 2rem;
     margin: 1rem 1rem;
 }
+.imagelink {
+    text-decoration: none;
+    color: maroon;
+}
 
 .imagediv {
     border-radius: 10px;
@@ -83,6 +87,13 @@ header {
     padding: 1rem;
     animation: fadeUp 1s;
 }
+
+.imagediv:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
 @keyframes fadeUp {
     from {
         transform: translateY(50%);
@@ -178,6 +189,11 @@ h1 {
     background-color: #f8f8f8;
     resize: none;
 }
+.commenttxt,
+.usr {
+    font-weight: bold;
+}
+
 .imageonmodal {
     padding: 10px;
     margin: 10px;

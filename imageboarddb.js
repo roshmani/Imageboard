@@ -21,7 +21,8 @@ module.exports.getMoreImagesFromdb = function(id) {
 };
 
 module.exports.getComments = function(id) {
-    var query = `SELECT comment,username,created_at
+    var query = `SELECT comment,username,
+    to_char(created_at,'Day, DD-MM-YYYY HH12:MI:SS OF') as created_at
     FROM comments
     WHERE image_id=$1
     ORDER BY id DESC`;
@@ -52,7 +53,7 @@ module.exports.writeFiletodb = function(url, title, description, username) {
 
 module.exports.writeCommentstodb = function(imageid, comment, username) {
     var query = `INSERT INTO comments (image_id, comment,username)
-    VALUES ($1,$2,$3) returning comment,username,created_at`;
+    VALUES ($1,$2,$3) returning comment,username,to_char(created_at,'Day, DD-MM-YYYY HH12:MI:SS OF') as created_at`;
     return db.query(query, [
         imageid || null,
         comment || null,
