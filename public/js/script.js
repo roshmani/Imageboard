@@ -35,6 +35,8 @@
                     .post("/submitComment/" + this.id, this.form)
                     .then(function(resp) {
                         component.comments.unshift(resp.data.comment[0]);
+                        component.form.comment = "";
+                        component.form.username = "";
                     });
             }, //submitcomment end
             getImageforModal: function() {
@@ -54,6 +56,7 @@
         el: "#main",
         data: {
             images: [],
+            search: "",
             lastImageId: null,
             hasMore: true,
             currentImageId: location.hash.length > 1 && location.hash.slice(1),
@@ -64,11 +67,7 @@
             }
         },
         mounted: function() {
-            axios.get("/getImages").then(function(res) {
-                app.images = res.data.images;
-                app.lastImageId = app.images[app.images.length - 1].id;
-                console.log("image id", app.lastImageId);
-            });
+            this.loadImages();
         },
         methods: {
             uploadFile: function(e) {
@@ -80,9 +79,18 @@
                 formData.append("title", this.form.title);
                 formData.append("description", this.form.description);
                 formData.append("username", this.form.username);
-                axios.post("/upload", formData).then(function(resp) {
-                    app.images.unshift(resp.data.image);
-                });
+                axios
+                    .post("/upload", formData)
+                    .then(function(resp) {
+                        app.images.unshift(resp.data.image);
+                        app.form.title = "";
+                        app.form.description = "";
+                        app.form.username = "";
+                        this.file = "";
+                    })
+                    .catch(err => {
+                        console.log("error in upload files", err);
+                    });
             }, //close upload
             getImageId: function(id) {
                 this.currentImageId = id;
@@ -103,6 +111,30 @@
             }, //getMoreImages
             changeFile: function(e) {
                 this.file = e.target.files[0];
+            },
+            filteredImages: function() {
+                var self = this;
+                let filtered;
+                if (this.search != "") {
+                    filtered = this.images.filter(function(image) {
+                        return (
+                            image.title
+                                .toLowerCase()
+                                .indexOf(self.search.toLowerCase()) >= 0
+                        );
+                    });
+                    console.log("test", filtered);
+                    this.images = filtered;
+                } else {
+                    this.loadImages();
+                }
+            },
+            loadImages: function() {
+                axios.get("/getImages").then(function(res) {
+                    app.images = res.data.images;
+                    app.lastImageId = app.images[app.images.length - 1].id;
+                    console.log("last image id", app.lastImageId);
+                });
             }
         } //close methods
     }); //close vue

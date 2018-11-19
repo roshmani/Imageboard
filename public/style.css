@@ -64,7 +64,13 @@ header {
     text-align: center;
     border-bottom: 1px solid #f38572;
 }
-
+.searchdiv {
+    text-align: right;
+}
+.searchinput {
+    right: 5px;
+    padding: 5px;
+}
 .imagesContainer {
     display: flex;
     flex-wrap: wrap;

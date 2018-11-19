@@ -1,6 +1,6 @@
 var spicedpg = require("spiced-pg");
 const secrets = require("./secrets.json");
-dbURL = secrets.dbURL;
+const dbURL = secrets.dbURL;
 const db = spicedpg(dbURL);
 
 module.exports.getImages = function() {

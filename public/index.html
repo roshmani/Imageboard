@@ -11,6 +11,9 @@
         <header class="imageboardheader">
             <h1 class="headerh1">Image Board</h1>
             <p class="headtxt">A repository of random images..</p>
+            <div class="searchdiv">
+                <input v-model="search" @keyup="filteredImages" class="searchinput" icon="search" type="text" name="search" placeholder="search..">
+            </div>
         </header>
         <div class="uploadform">
             <h1>Add an Image:</h2>
